@@ -9,7 +9,7 @@ def setupGlobalLogger():
     #theLogger = logging.getLogger('root')
     #theLogger.setLevel(logging.DEBUG)
     #theLogger.addHandler(theLoggingHandler)
-
+    # logging levels DEBUG, INFO, WARNING, ERROR and CRITICAL
     formatter = logging.Formatter(fmt="%(asctime)s %(module)-20s %(levelname)s: %(message)s", datefmt="%d-%m %H:%M:%S")
     handler = logging.StreamHandler()
     handler.setFormatter(formatter)
