@@ -1,0 +1,178 @@
+import multiprocessing as multiprocessing
+import time
+import signal
+import asyncore
+import socket
+
+
+class EchoHandler(asyncore.dispatcher_with_send):
+
+    def handle_read(self):
+        data = self.recv(8192)
+        d = str(data.decode('utf-8').lower().strip())
+        print("d = %s" %  d)
+        self.process_data(d)
+       
+    def process_data(self, data):
+        if data== "quit":
+            self.send(b'')
+            self.close()
+        elif data== "test":
+            self.send(b'this is a test\n')
+        elif data.startswith('sync'):
+            self.send(b'sync-ing\n')
+        else:
+            pass
+            #self.send(data)
+
+    def handle_connect(self):
+        print('server-connect')
+
+
+class EchoServer(asyncore.dispatcher):
+
+    def __init__(self, host, port):
+        signal.signal(signal.SIGINT, self.stopper)
+        asyncore.dispatcher.__init__(self)
+        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.set_reuse_addr()
+        self.bind((host, port))
+        self.listen(5)
+
+    def handle_accepted(self, sock, addr):
+        print('Incoming connection from %s' % repr(addr))
+        handler = EchoHandler(sock)
+
+    def starting(self):
+        asyncore.loop()
+
+    def stopper(self, signal, frame):
+        p = multiprocessing.current_process()
+        print ("alive %s pid %d" % (p.is_alive(), p.pid))
+        p.terminate()
+        # exit(1)
+
+def starttel():
+    s = EchoServer('localhost', 8080)
+    s.starting()
+
+def start():
+    p = multiprocessing.current_process()
+    print ("A %s pid %d" % (p.is_alive(), p.pid))
+    time.sleep(2)
+    print('A')
+    time.sleep(2)
+
+def startB():
+    p = multiprocessing.current_process()
+    print ("B %s pid %d" % (p.is_alive(), p.pid))
+    time.sleep(2)
+    print('B')
+    time.sleep(2)
+    print('BB')
+    time.sleep(3)
+    print('BBB')
+       
+if __name__=="__main__":
+    a = multiprocessing.Process(target=start, args=())
+    a.start()
+    b = multiprocessing.Process(target=startB, args=())
+    b.start()
+    c = multiprocessing.Process(target=starttel, args=())
+    c.start()
+    join()
+    print('end')
+---------------^^^^ mai nou ^^^----------
+import os
+from os.path import join, getsize
+import sys
+
+a = {}
+if len(sys.argv) >=2:
+    for root, dirs, files in os.walk(sys.argv[1]):
+        #print(root, "consumes", end=" ")
+        # print(sum(getsize(join(root, name)) for name in files), end=" ")
+
+        for name in files:
+            myfile = join(root, name)
+            if not name.endswith('lock'):
+                myfilesize = os.lstat(myfile).st_size
+            #print("%s occupies %d bytes" %(myfile, myfilesize), end=" ")
+                a[myfile]= myfilesize
+
+    print("\nconstructed %d elements big hash occupying %d MB" % (len(a), sys.getsizeof(a)/1024/1024))
+
+        #print("bytes in", len(files), "non-directory files")
+        #if '.svn' in dirs:
+        #    dirs.remove('.svn')  # don't visit CVS directories
+else:
+    print("no")
+
+
+
+import asyncore
+import socket
+
+class EchoHandler(asyncore.dispatcher_with_send):
+
+    def handle_read(self):
+        data = self.recv(8192)
+        d = str(data.decode('utf-8').lower().strip())
+        print("r= %s" %  d)
+        if d== "quit":
+            self.send(b'')
+            self.close()
+        elif d== "test":
+            self.send(b'this is a test\n')
+        elif d.startswith('sync'):
+            self.send(b'sync-ing')
+        else:
+            self.send(data)
+
+    def handle_connect(self):
+        print('server-connect')
+
+marti - :))
+class EchoServer(asyncore.dispatcher):
+
+    def __init__(self, host, port):
+        asyncore.dispatcher.__init__(self)
+        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.set_reuse_addr()
+        self.bind((host, port))
+        self.listen(5)
+
+    def handle_accepted(self, sock, addr):
+        print('Incoming connection from %s' % repr(addr))
+        handler = EchoHandler(sock)
+
+server = EchoServer('localhost', 8080)
+asyncore.loop()
+
+------------------- mai vechi ----------
+import asyncore
+import socket
+
+class EchoHandler(asyncore.dispatcher_with_send):
+
+    def handle_read(self):
+        data = self.recv(8)
+        if data:
+            self.send(data)
+
+class EchoServer(asyncore.dispatcher):
+
+    def __init__(self, host, port):
+        asyncore.dispatcher.__init__(self)
+        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.set_reuse_addr()
+        self.bind((host, port))
+        self.listen(5)
+
+    def handle_accepted(self, sock, addr):
+        print('Incoming connection from %s' % repr(addr))
+        handler = EchoHandler(sock)
+
+server = EchoServer('localhost', 8080)
+asyncore.loop()
+
