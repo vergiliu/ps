@@ -1,3 +1,6 @@
 ps - initial plan, WIP
 * so far:
-  * parsing arguments (ongoing)
+  * parsing arguments (almost done)
+  * asyncore server handling simple text
+* to do:
+  * Youtrack http://vergiliu.myjetbrains.com/youtrack/issues/PS
