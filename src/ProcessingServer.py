@@ -44,9 +44,13 @@ class ProcessingServer(asyncore.dispatcher):
         handler = ClientHandler(sock)
     
     def interruptExecution(self, signal, frame):
+        # import multiprocessing
         #p = multiprocessing.current_process()
         #print ("alive %s pid %d" % (p.is_alive(), p.pid))
         #p.terminate()
+        #    c = multiprocessing.Process(target=starttel, args=())
+        # c.start()
+        # join()
         logger.info("server is exiting\n")
         exit(1)
     
