@@ -1,5 +1,6 @@
 import getopt #as getopt
 import logging
+import signal 
 
 __name__ = 'ParseArguments'
 logger = logging.getLogger("main")
@@ -50,11 +51,11 @@ class ParseArguments:
 
     def showUsage(self):
         """show usage"""
-        logger.warning("\nInstructions: app\n\
+        logger.info("\nInstructions: app\n\
          \t[-h|--help] show this help\n\
          \t[-p NUMBER|--port=NUMBER] define port to run on\n\
          \t[abcdef]    some options\n")
-         self.doShutdown()
+        self.doShutdown()
     
     def doShutdown(self):
         """exit"""
