@@ -1,1 +1,1 @@
-__all__ = ["ParseArguments", "ProcessingServer"]
+__all__ = ["ParseArguments", "ProcessingServer", "FolderComparator"]

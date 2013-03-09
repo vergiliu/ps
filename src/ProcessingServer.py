@@ -6,8 +6,14 @@ import logging
 __name__ = 'ProcessingServer'
 logger = logging.getLogger("main")
 
+
 class ClientHandler(asyncore.dispatcher_with_send):
-    
+    """The class will take care of dispatching work from clients connected to the
+    ProcessingServer class and adding tasks to a Queue 
+    TODO add queue
+    TODO add meaningful processing
+    TODO move class out of this file
+    """
     def handle_read(self):
         data = self.recv(8192)
         myIncomingData = str(data.decode('utf-8').lower().strip())
@@ -27,6 +33,7 @@ class ClientHandler(asyncore.dispatcher_with_send):
     
     def handle_connect(self):
         logger.debug('server-connect')
+
 
 class ProcessingServer(asyncore.dispatcher):
     

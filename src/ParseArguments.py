@@ -5,6 +5,7 @@ import signal
 __name__ = 'ParseArguments'
 logger = logging.getLogger("main")
 
+
 class ParseArguments:
     """Parse command line arguments, at least one parameter is needed"""
 

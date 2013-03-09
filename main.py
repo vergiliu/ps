@@ -3,6 +3,7 @@ import sys
 from src.ParseArguments import ParseArguments
 from src.ProcessingServer import ProcessingServer
 
+
 def setupGlobalLogger():
     """abc def"""
     #theLoggingHandler = logging.StreamHandler()
