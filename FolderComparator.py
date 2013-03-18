@@ -1,41 +1,17 @@
 import filecmp
 import os
 import sys
-import time
 import shutil
 import logging
+from FolderComparatorStatus import FolderComparatorStatus
 
 # hash with all the files
 # initial root folder where all the files are coming of - we need 2 of these
 # folder support needs to be added
 
+__module__ = 'src'
 __name__ = 'FolderComparator'
 logger = logging.getLogger("main")
-
-class FolderComparatorStatus:
-    """The class will store the last update of the FolderComparator and keep track
-    of the current status, for long running operations
-    """
-
-    def __init__(self):
-        self.lastRun = 0
-        self.status = None
-        pass
-
-    def setStatus(self, aStatus):
-        self.status = aStatus
-        print(self.status)
-
-    def updateStatus(self, aNewStatus):
-        self.status = aNewStatus
-        self.lastRun = time.time()
-        print(self.status)
-
-    def getLastRun(self):
-        return self.lastRun
-
-    def getLastStatus(self):
-        return self.status
 
 
 class FolderComparator:
@@ -182,7 +158,7 @@ class FolderComparator:
             # print("simiar files %s" % filesTestArray)
 
     def isInSync(self):
-        if len(self.inLeftButNotInRight) == 0 and len(self.inRightButNotInLeft) == 0:
+        if self.comparatorStatus.getLastRun() != 0 or len(self.inLeftButNotInRight) == 0 and len(self.inRightButNotInLeft) == 0:
             self.comparatorStatus.setStatus("synced")
             return True
         else:

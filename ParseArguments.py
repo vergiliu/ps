@@ -1,16 +1,16 @@
-import getopt #as getopt
+import getopt
 import logging
-import signal 
 
+__module__ = 'src'
 __name__ = 'ParseArguments'
 logger = logging.getLogger("main")
-
 
 class ParseArguments:
     """Parse command line arguments, at least one parameter is needed"""
 
     def __init__(self, aParamsArray):
         """init"""
+#        logger.debug(aParamsArray)
         self.thePortNumber = 45678
         self.theHostName = 'localhost'
         if len(aParamsArray) == 1:
@@ -43,10 +43,10 @@ class ParseArguments:
                 logger.debug("test string is %s" % myArgumentsValues)
             else:
                 logger.debug("not help")
-                
+
     def getPort(self):
         return self.thePortNumber
-    
+
     def getHostname(self):
         return self.theHostName
 
@@ -57,7 +57,7 @@ class ParseArguments:
          \t[-p NUMBER|--port=NUMBER] define port to run on\n\
          \t[abcdef]    some options\n")
         self.doShutdown()
-    
+
     def doShutdown(self):
         """exit"""
         logger.critical("will stop")

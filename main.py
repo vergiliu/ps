@@ -1,8 +1,7 @@
 import logging
 import sys
-from src.ParseArguments import ParseArguments
-from src.ProcessingServer import ProcessingServer
-
+from ParseArguments import ParseArguments
+from ProcessingServer import ProcessingServer
 
 def setupGlobalLogger():
     """abc def"""
@@ -21,8 +20,9 @@ def setupGlobalLogger():
 
 if __name__ == "__main__":
     setupGlobalLogger()
+
     myArguments = ParseArguments(sys.argv)
     myArguments.processCommandArguments()
-    
+
     myServer = ProcessingServer(myArguments.getHostname(), myArguments.getPort())
     myServer.startServer()
