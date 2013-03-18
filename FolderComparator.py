@@ -3,11 +3,14 @@ import os
 import sys
 import time
 import shutil
+import logging
 
 # hash with all the files
 # initial root folder where all the files are coming of - we need 2 of these
 # folder support needs to be added
 
+__name__ = 'FolderComparator'
+logger = logging.getLogger("main")
 
 class FolderComparatorStatus:
     """The class will store the last update of the FolderComparator and keep track
